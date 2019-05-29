@@ -205,6 +205,7 @@ def get_shortest(line, objects, dir):
     for object in objects:
         object_dup = object.copy()
         object_dup.append(object[0])
+        p1 = p2 = None
         for point in object_dup:
             if p1 is None:
                 p1 = point
@@ -225,9 +226,7 @@ def get_shortest(line, objects, dir):
                     if x <= max(p1[0],p2[0]) and x >= min(p1[0],p2[0]) and y <= max(p1[1],p2[1]) and y >= min(p1[1],p2[1]):
                         if eq_degree(dir, [line[3],line[4]], [x,y]):
                             obj_distance = find_distance([line[3],line[4]],[x,y])
-                            if (shortest_distance == -1):
-                                shortest_distance = obj_distance
-                            elif (obj_distance < shortest_distance):
+                            if (obj_distance < shortest_distance or shortest_distance == -1):
                                 shortest_distance = obj_distance
                                 short_x = x 
                                 short_y = y
