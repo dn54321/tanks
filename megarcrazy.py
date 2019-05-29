@@ -24,10 +24,16 @@ from tank import Tank
 #
 # where x is the center of your object (used to track position) currently at (0,0)
 class MC_tank(Tank):
+    def __init__(self, spawn_loc, color='black'):
+        super().__init__(spawn_loc, color)
+        # VARIABLES THAT PERSIST OVER MULTIPLE CALLS
     def action(self):
         self.set_angle(30)
         self.move_tank(1)
 class DN_tank(Tank):
+    def __init__(self, spawn_loc, color='black'):
+        super().__init__(spawn_loc, color)
+        # VARIABLES THAT PERSIST OVER MULTIPLE CALLS
     def action(self):
         self.set_angle(90)
         self.move_tank(1)
