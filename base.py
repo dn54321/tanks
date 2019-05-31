@@ -167,16 +167,16 @@ def detect_collision(list_a,list_b,minw,maxw):
                     if (curr[1] >= coords_A[1] and prev[1] <= coords_A[1]) or (curr[1] <= coords_A[1] and prev[1] >= coords_A[1]):
                         if curr[0] == prev[0]:
                             x = curr[0]
+                        elif curr[1] == prev[1]:
+                            if (curr[0] >= coords_A[0] and prev[0] <= coords_A[0]) or (curr[0] <= coords_A[0] and prev[0] >= coords_A[0]):
+                                return True
                         else:
                             c = curr[1] - (curr[1] - prev[1])/(curr[0]-prev[0])*curr[0]
                             x = (coords_A[1]-c)*(curr[0] - prev[0])/(curr[1]-prev[1])
-                        if curr[1] == prev[1]:
-                            if (curr[0] >= coords_A[0] and prev[0] <= coords_A[0]) or (curr[0] <= coords_A[0] and prev[0] >= coords_A[0]):
-                                return True
                         if (coords_A[0] <= x):
                             if ((curr[1] == coords_A[1] and prev[1] != coords_A[1]) or (curr[1] != coords_A[1] and prev[1] == coords_A[1])):
-                                num += 0.5
-                            elif (x <= maxw and x >= minw):
+                                break
+                            elif (x <= maxw and x >= minw and curr[1] != prev[1]):
                                 num += 1
                     prev = coords_B
             if num % 2.0 == 1.0:
@@ -195,16 +195,16 @@ def detect_collision(list_a,list_b,minw,maxw):
                     if (curr[1] >= coords_B[1] and prev[1] <= coords_B[1]) or (curr[1] <= coords_B[1] and prev[1] >= coords_B[1]):
                         if curr[0] == prev[0]:
                             x = curr[0]
+                        elif curr[1] == prev[1]:
+                            if (curr[0] >= coords_B[0] and prev[0] <= coords_B[0]) or (curr[0] <= coords_B[0] and prev[0] >= coords_B[0]):
+                                return True
                         else:
                             c = curr[1] - (curr[1] - prev[1])/(curr[0]-prev[0])*curr[0]
                             x = (coords_B[1]-c)*(curr[0] - prev[0])/(curr[1]-prev[1])
-                        if curr[1] == prev[1]:
-                            if (curr[0] >= coords_B[0] and prev[0] <= coords_B[0]) or (curr[0] <= coords_B[0] and prev[0] >= coords_B[0]):
-                                return True
-                        elif (coords_B[0] <= x):
+                        if (coords_B[0] <= x):
                             if (curr[1] == coords_B[1] and prev[1] != coords_B[1]) or (curr[1] != coords_B[1] and prev[1] == coords_B[1]):
                                 num += 0.5
-                            elif (x <= maxw and x >= minw):
+                            elif (x <= maxw and x >= minw and curr[1] != prev[1]):
                                 num += 1
                     prev = coords_A
             if num % 2 == 1.0:

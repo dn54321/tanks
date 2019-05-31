@@ -174,9 +174,9 @@ class Tank(ABC):
         if distance < 0:
             # 0 or 180 degrees
             if tank_angle == 0:
-                return Block(self.x,maxh,"wall",maxh-self.y)
-            elif tank_angle == 180:
                 return Block(self.x,minh,"wall",self.y-minh)
+            elif tank_angle == 180:
+                return Block(self.x,maxh,"wall",maxh-self.y)
             # 90 or 270 degrees
             elif tank_angle == 90:
                 return Block(maxw,self.y,"wall",maxw-self.x)
@@ -239,9 +239,9 @@ def find_distance(p1,p2):
 
 def eq_degree(dir, p1, p2):
     if (p1[0] == p2[0]):
-        if (p2[1] <= p1[1] and dir == 0):
+        if (p2[1] <= p1[1] and dir == 0): # y inverted
             return True
-        elif (dir == 180):
+        elif (p2[1] >= p1[1] and dir == 180):
             return True
     else:
         angle = math.degrees(math.atan2((p2[1]-p1[1]),(p2[0]-p1[0])))
