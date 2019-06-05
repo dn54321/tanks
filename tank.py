@@ -69,29 +69,17 @@ class Tank(ABC):
         y = -math.sin(math.radians(45-self.dir))*p[0]-math.cos(math.radians(45-self.dir))*p[1]+self.y
         return [x,y]
 
-    @abstractmethod
     def action(self):
         if self.ammo is 0:
             self.recharge -= 1
         if self.recharge is 0:
             self.ammo = 3
             self.recharge = SET_TICK * 5
-        if self.color == 'blue':
-       #     self.set_angle(0)
-       #     a = self.search()
-            self.set_angle(30)
-            a = self.search()
-            print("{},{},{},{}".format(a.x,a.y,a.type,a.distance))
-            self.set_angle(0)
-            a = self.search()
-            print("{},{},{},{}".format(a.x,a.y,a.type,a.distance))
-           # if len(self.bullets) == 0:
-           #     self.shoot()
-        if self.color == 'red':
-            self.set_angle(-45)
-           # if len(self.bullets) == 0:
-            #    self.shoot()
+        self.action_start()
 
+    @abstractmethod
+    def action_start(self):
+        pass
     def search(self):
         opponent_bullets = []
         opponent_tanks = []
@@ -184,12 +172,12 @@ class Tank(ABC):
                 return Block(minw,self.y,"wall",self.x-minw)
             # every other degree
             for x in [minw, maxw]:
-                y = x_c*x + c
-                if (y >= minh and y <= maxh):
+                y = -x_c*x + c
+                if (y >= minh-0.001 and y <= maxh+0.001):
                     return Block(x,y,"wall",find_distance([self.x,self.y],[x,y]))
             for y in [minh, maxh]:
                 x = (y-c)/x_c
-                if (x >= minw and x <= maxw):
+                if (x >= minw-0.001 and x <= maxw+0.001):
                     return Block(x,y,"wall",find_distance([self.x,self.y],[x,y]))
         return Block(x,y,obj_type,distance)
 
